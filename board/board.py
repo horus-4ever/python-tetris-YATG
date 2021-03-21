@@ -2,24 +2,48 @@ import numpy as np
 
 
 class Board:
+    """
+    A class used to represent the game board
+
+    CLASS ATTRIBUTES
+    ----------------
+    WIDTH: int
+        the width of the game board
+    HEIGHT: int
+        the height of the game board
+
+    ATTRIBUTES
+    ----------
+    board: np.array
+        A two-dimensional numpy array representing the board.
+        Each element is either 0 (non-occupied) or 1 (occupied).
+
+    METHODS
+    -------
+    can_rotate(self, piece: Piece, n: int) -> bool:
+        predicate returning True if the piece can be rotated, False otherwise
+    can_move(self, piece: Piece, position: tuple[int, int]) -> bool:
+        predicate returning True is the piece can be moved to the given position, False otherwise
+    fix(self, piece: Piece):
+        fix the given tetrimino on the board
+    strip(self) -> int:
+        deletes and counts all full lines, and returns the number of full lines.
+    """
     WIDTH = 10
     HEIGHT = 22
 
     def __init__(self):
         self.board = np.zeros(shape=(self.HEIGHT, self.WIDTH), dtype=int)
 
-    def can_rotate(self, piece, rotation):
-        posx, posy = self.piece.position
-
-    def can_rotate(self, piece, n):
+    def can_rotate(self, piece: 'Piece', n: int) -> bool:
         fake_matrix = np.rot90(piece.matrix, n)
         return self._can_play(fake_matrix, piece.position, piece.size)
 
-    def can_move(self, piece, position):
+    def can_move(self, piece: 'Piece', position: (int, int)) -> bool:
         fake_position = (piece.position[0], piece.position[1] + 1)
         return self._can_play(piece.matrix, position, piece.size)
     
-    def _can_play(self, matrix, piece_position, piece_size):
+    def _can_play(self, matrix: np.array, piece_position: (int, int), piece_size: (int, int)) -> bool:
         width, height = piece_size
         posx, posy = piece_position
         for x in range(posx, posx + width):
@@ -31,7 +55,7 @@ class Board:
                     return False
         return True
 
-    def fix(self, piece):
+    def fix(self, piece: 'Piece'):
         posx, posy = piece.position
         width, height = piece.size
         max_xbound = min((posx + width), self.WIDTH)
@@ -45,7 +69,7 @@ class Board:
         new_board = self.board.copy()
         for i, line in enumerate(self.board):
             if all(line):
-                new_board[1:i+1] = new_board[0:i]
+                new_board[1:i+1+counter] = new_board[0:i]
                 counter += 1
         self.board = new_board
         return counter

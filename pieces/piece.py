@@ -47,11 +47,11 @@ class Piece:
         self._rotation = value % 4
 
     @property
-    def matrix(self):
+    def matrix(self) -> np.array:
         return np.rot90(self.shape, self.rotation)
     
     def rotate(self, n=1):
         self.rotation += n
 
-    def move(self, position):
+    def move(self, position: (int, int)):
         self.position = position

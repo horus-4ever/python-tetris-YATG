@@ -20,7 +20,7 @@ class GuiBoard(Board):
                     self.PIXEL_SIZE
                 )
                 if self.board[y][x]:
-                    pygame.draw.rect(surface, Colors.DARK_GREAY, rectangle)
+                    pygame.draw.rect(surface, Colors.DARK_GREY, rectangle)
 
     def draw_piece(self, piece, surface, position):
         piece.draw(surface, position, self.PIXEL_SIZE)
