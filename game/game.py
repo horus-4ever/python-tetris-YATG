@@ -1,12 +1,13 @@
 from collections import deque
 from .gui_piece import GuiPiece
 from .gui_board import GuiBoard
+from .next_pieces import NextPieces
 from .colors import Colors
 import pygame
 
 
 class Game:
-    WIDTH = GuiBoard.WIDGET_WIDTH
+    WIDTH = GuiBoard.WIDGET_WIDTH + NextPieces.WIDGET_WIDTH
     HEIGHT = GuiBoard.WIDGET_HEIGHT
     FPS = 20
     SPEED = 500
@@ -17,7 +18,7 @@ class Game:
         self.TICK_EVENT = pygame.USEREVENT + 1
         self.running = True
         self.current_piece = GuiPiece.random_piece()
-        self.pieces = deque(GuiPiece.random_piece() for _ in range(3))
+        self.next_pieces = NextPieces()
         self.board = GuiBoard()
 
     def run(self):
@@ -33,10 +34,17 @@ class Game:
             for key, state in enumerate(keyboard):
                 if state:
                     self._on_key_event(key)
-            self.board.draw(self.window, (0, 0))
-            self.board.draw_piece(self.current_piece, self.window, (0, 0))
+            self.draw_all()
             self.clock.tick(self.FPS)
             pygame.display.update()
+
+    def draw_all(self):
+        x, y = (0, 0)
+        self.board.draw(self.window, (x, y))
+        self.board.draw_piece(self.current_piece, self.window, (x, y))
+        x += GuiBoard.WIDGET_WIDTH
+        pygame.draw.line(self.window, Colors.WHITE, (x, y), (x, y + self.HEIGHT), 2)
+        self.next_pieces.draw(self.window, (x, y))
 
     def _on_tick(self):
         posx, posy = self.current_piece.position
@@ -47,8 +55,7 @@ class Game:
             self.running = False
         else:
             self.board.fix(self.current_piece)
-            self.current_piece = self.pieces.popleft()
-            self.pieces.append(GuiPiece.random_piece())
+            self.current_piece = self.next_pieces.pop()
             self.board.strip()
 
     def _on_key_event(self, key):

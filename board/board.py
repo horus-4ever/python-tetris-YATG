@@ -69,7 +69,7 @@ class Board:
         new_board = self.board.copy()
         for i, line in enumerate(self.board):
             if all(line):
-                new_board[1:i+1+counter] = new_board[0:i]
+                new_board[1:i+1] = new_board[0:i]
                 counter += 1
         self.board = new_board
         return counter
