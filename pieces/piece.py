@@ -3,6 +3,7 @@ import numpy as np
 
 class Piece:
     """
+    ## Piece(object) ##
     A class used to represent a tetrimino.
 
     ATTRIBUTES

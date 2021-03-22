@@ -5,6 +5,23 @@ from .gui_piece import GuiPiece
 
 
 class NextPieces:
+    """
+    ## NextPieces(object) ##
+    The gui component of the tetris game representing the next tetriminos to be played
+
+    ATTRIBUTES
+    ----------
+    pieces: collections.deque[GuiPiece]
+        the queue of the next tetriminos to be played
+    
+    METHODS
+    -------
+    pop(self) -> GuiPiece:
+        pop off the queue the next tetrimino to be played, and push a new random tetrimino
+    draw(self, surface: pygame.Surface, position: (int, int)) -> None:
+        draw the widget on the given surface
+
+    """
     NUMBER = 3
     PIXEL_SIZE = 15
     MAX_PIECE_WIDTH = 4

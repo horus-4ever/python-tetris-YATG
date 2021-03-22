@@ -3,6 +3,7 @@ import numpy as np
 
 class Board:
     """
+    ## Board(object) ##
     A class used to represent the game board
 
     CLASS ATTRIBUTES
@@ -21,13 +22,13 @@ class Board:
     METHODS
     -------
     can_rotate(self, piece: Piece, n: int) -> bool:
-        predicate returning True if the piece can be rotated, False otherwise
+        returns True if the piece can be rotated, False otherwise
     can_move(self, piece: Piece, position: tuple[int, int]) -> bool:
-        predicate returning True is the piece can be moved to the given position, False otherwise
+        returns True is the piece can be moved to the given position, False otherwise
     fix(self, piece: Piece):
         fix the given tetrimino on the board
     strip(self) -> int:
-        deletes and counts all full lines, and returns the number of full lines.
+        deletes all full lines, and return the number of deleted lines
     """
     WIDTH = 10
     HEIGHT = 22

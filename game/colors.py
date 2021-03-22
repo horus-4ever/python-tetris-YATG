@@ -3,6 +3,16 @@ from random import choice
 
 
 class Colors(IntEnum):
+    """
+    ## Colors(IntEnum) ##
+    The enumeration of all colors used in the game.
+
+    CLASSMETHODS
+    ------------
+    random_color(cls) -> int:
+        returns a random color from the members of the enumeration.
+        The random color cannot be one of the 3 following reserved colors : DARK_GREY, BLACK and WHITE
+    """
     ORANGE = 0xEE9900
     YELLOW = 0xDDEE00
     WHITE = 0xFFFFFF
