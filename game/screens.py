@@ -106,7 +106,7 @@ class LostScreen:
 
 
 class PauseScreen:
-    FONT = pygame.font.SysFont(None, 40)
+    FONT = pygame.font.SysFont(None, 30)
 
     def __init__(self, layout):
         self.layout = layout
@@ -129,14 +129,14 @@ class PauseScreen:
         if self.img is None:
             array = pygame.surfarray.pixels3d(surface)
             image = Image.fromarray(array)
-            image = image.filter(ImageFilter.GaussianBlur(5))
+            image = image.filter(ImageFilter.GaussianBlur(10))
             self.img = pygame.surfarray.make_surface(np.array(image))
             del array # else : surface is locked
         surface.blit(self.img, position)
         width, height = surface.get_rect().width, surface.get_rect().height
         text = self.FONT.render("Pause", True, (200, 200, 200), Colors.BLACK)
         rect = text.get_rect(center=(width // 2, height // 2))
-        rectangle = pygame.draw.rect(surface, Colors.DARK_GREY, (width // 2 - 60, height // 2 - 60, 120, 120), 3, 10)
+        rectangle = pygame.draw.rect(surface, Colors.DARK_GREY, (width // 2 - 40, height // 2 - 40, 80, 80), 3, 10)
         surface.fill(Colors.BLACK, rectangle)
-        pygame.draw.rect(surface, Colors.LIGHT_GREY, (width // 2 - 60, height // 2 - 60, 120, 120), 2, 1)
+        pygame.draw.rect(surface, Colors.WHITE, (width // 2 - 40, height // 2 - 40, 80, 80), 2, 1)
         surface.blit(text, rect)

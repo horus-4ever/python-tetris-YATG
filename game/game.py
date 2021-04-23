@@ -64,6 +64,7 @@ class Game:
 
     def __init__(self):
         self.window = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
+        pygame.display.set_caption('Tetris')
         self.clock = pygame.time.Clock()
         self.layout = StackedLayout()
         self.game_frame = GameScreen(self.layout)
