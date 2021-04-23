@@ -78,15 +78,20 @@ class GameScreen:
 
 
 class LostScreen:
+    TITLE_FONT = pygame.font.SysFont(None, 40)
+    TEXT_FONT = pygame.font.SysFont(None, 20)
+
     def __init__(self, layout):
         self.layout = layout
-        self.img_array = None
+        # self.img_array = None
 
     def enter(self):
-        self.img_array = None
+        # self.img_array = None
+        pass
 
     def exit(self):
-        self.img_array = None
+        # self.img_array = None
+        pass
 
     def on_event(self, event):
         return True
@@ -97,12 +102,14 @@ class LostScreen:
             self.layout.set_frame("game_screen")
 
     def draw(self, surface, position):
-        if self.img_array is None:
-            array = pygame.surfarray.pixels3d(surface)
-            image = Image.fromarray(array)
-            image = image.filter(ImageFilter.GaussianBlur(5))
-            self.img_array = np.array(image)
-        pygame.surfarray.blit_array(surface, self.img_array)
+        surface.fill(Colors.BLACK)
+        width, height = surface.get_rect().width, surface.get_rect().height
+        title = self.TITLE_FONT.render("LOST !", True, (255, 255, 255), Colors.BLACK)
+        text = self.TEXT_FONT.render("(press 'space' to start)", True, (255, 255, 255), Colors.BLACK)
+        rect = title.get_rect(center=(width // 2, height // 2))
+        surface.blit(title, rect)
+        rect = text.get_rect(center=(width // 2, height // 2 + 40))
+        surface.blit(text, rect)
 
 
 class PauseScreen:
