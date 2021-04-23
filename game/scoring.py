@@ -40,6 +40,9 @@ class Scoring:
     def __init__(self):
         self.score = 0
 
+    def reset(self):
+        self.score = 0
+
     def draw(self, surface, position):
         posx, posy = position
         img = self.FONT.render(f"{self.score:04}", True, (255, 255, 255))

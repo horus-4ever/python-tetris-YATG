@@ -36,6 +36,9 @@ class Board:
     def __init__(self):
         self.board = np.zeros(shape=(self.HEIGHT, self.WIDTH), dtype=int)
 
+    def reset(self):
+        self.board = np.zeros(shape=(self.HEIGHT, self.WIDTH), dtype=int)
+
     def can_rotate(self, piece: 'Piece', n: int) -> bool:
         fake_matrix = np.rot90(piece.matrix, n)
         return self._can_play(fake_matrix, piece.position, piece.size)
