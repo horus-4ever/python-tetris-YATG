@@ -1,4 +1,7 @@
-class StackedLayout:
+from .frame import Frame
+
+
+class StackedLayout(Frame):
     def __init__(self, **frames):
         self.frames = frames
         if len(self.frames):

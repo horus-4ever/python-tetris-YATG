@@ -1,4 +1,5 @@
 import pygame
+from .gui_board import GuiBoard
 
 
 class Scoring:
@@ -36,6 +37,7 @@ class Scoring:
     }
     FONT = pygame.font.SysFont(None, 40)
     WIDGET_HEIGHT = 50
+    WIDGET_WIDTH = GuiBoard.WIDGET_WIDTH
 
     def __init__(self):
         self.score = 0
@@ -46,7 +48,8 @@ class Scoring:
     def draw(self, surface, position):
         posx, posy = position
         img = self.FONT.render(f"{self.score:04}", True, (255, 255, 255))
-        surface.blit(img, (posx + 5, posy + 5))
+        rect = img.get_rect(center=(self.WIDGET_WIDTH // 2, self.WIDGET_HEIGHT // 2))
+        surface.blit(img, rect)
 
     def add_score(self, score):
         four_lines, lines = divmod(score, 4)

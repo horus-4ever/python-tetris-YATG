@@ -80,13 +80,14 @@ class Game:
 
     def run(self):
         while self.running:
+            frame_changed = False
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
                 else:
-                    self.running = self.layout.on_event(event)
+                    frame_changed = self.layout.on_event(event)
             keyboard = pygame.key.get_pressed()
-            if any(keyboard):
+            if any(keyboard) and not frame_changed:
                 self.layout.on_key_event(keyboard)
             self.layout.draw(self.window, (0, 0))
             self.clock.tick(self.FPS)

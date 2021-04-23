@@ -30,7 +30,7 @@ class GuiBoard(Board):
     draw_piece(self, piece: GuiPiece, surface: pygame.Surface, position: (int, int)) -> None:
         draw the given piece at the given position on the given surface
     """
-    PIXEL_SIZE = 20
+    PIXEL_SIZE = 30
     WIDGET_WIDTH = Board.WIDTH * PIXEL_SIZE
     WIDGET_HEIGHT = Board.HEIGHT * PIXEL_SIZE
 
