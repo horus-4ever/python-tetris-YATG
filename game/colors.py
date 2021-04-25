@@ -14,12 +14,12 @@ class Colors(IntEnum):
         returns a random color from the members of the enumeration.
         The random color cannot be one of the 3 following reserved colors : DARK_GREY, BLACK and WHITE
     """
-    ORANGE = Color(0xAADD00)
+    ORANGE = Color(0xFF5500)
     YELLOW = Color(0xFFFF00)
     WHITE = Color(0xFFFFFF)
     GREEN = Color(0x00FF00)
     BLUE = Color(0x0099FF)
-    RED = Color(0xFF3333)
+    RED = Color(0xFF0000)
     PURPLE = Color(0xEE00EE)
     DARK_GREY = Color(0x555555)
     LIGHT_GREY = Color(0xAAAAAA)

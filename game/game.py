@@ -6,7 +6,7 @@ from .next_pieces import NextPieces
 from .scoring import Scoring
 """
 from .stackedlayout import StackedLayout
-from .screens import GameScreen, LostScreen, PauseScreen
+from .screens import GameScreen, LostScreen, PauseScreen, MenuScreen
 from .colors import Colors
 import pygame
 
@@ -67,15 +67,17 @@ class Game:
         pygame.display.set_caption('Tetris')
         self.clock = pygame.time.Clock()
         self.layout = StackedLayout()
-        self.game_frame = GameScreen(self.layout)
-        self.lost_frame = LostScreen(self.layout)
-        self.pause_frame = PauseScreen(self.layout)
+        self.game_frame = GameScreen(self.layout, (0, 0), (self.WIDTH, self.HEIGHT))
+        self.lost_frame = LostScreen(self.layout, (0, 0), (self.WIDTH, self.HEIGHT))
+        self.pause_frame = PauseScreen(self.layout, (0, 0), (self.WIDTH, self.HEIGHT))
+        self.menu_frame = MenuScreen(self.layout, (0, 0), (self.WIDTH, self.HEIGHT))
         self.layout.add_frames(
             game_screen=self.game_frame,
             lost_screen=self.lost_frame,
-            pause_screen=self.pause_frame
+            pause_screen=self.pause_frame,
+            menu_screen=self.menu_frame
         )
-        self.layout.set_frame("lost_screen")
+        self.layout.set_frame("menu_screen")
         self.running = True
 
     def run(self):

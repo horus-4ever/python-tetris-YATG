@@ -41,16 +41,24 @@ class Scoring:
 
     def __init__(self):
         self.score = 0
+        self.level = 1
+        self.deleted_lines = 0
 
     def reset(self):
         self.score = 0
+        self.level = 1
+        self.deleted_lines = 0
 
     def draw(self, surface, position):
         posx, posy = position
-        img = self.FONT.render(f"{self.score:04}", True, (255, 255, 255))
+        img = self.FONT.render(f"Lvl {self.level} : {self.score:04}", True, (255, 255, 255))
         rect = img.get_rect(center=(self.WIDGET_WIDTH // 2, self.WIDGET_HEIGHT // 2))
         surface.blit(img, rect)
 
-    def add_score(self, score):
-        four_lines, lines = divmod(score, 4)
-        self.score += self.SCORES[4] * four_lines + self.SCORES[lines]
+    def add_score(self, deleted_lines):
+        four_lines, lines = divmod(deleted_lines, 4)
+        self.score += (self.SCORES[4] * four_lines) * self.level + self.SCORES[lines] * self.level
+        self.deleted_lines += deleted_lines
+        if self.deleted_lines >= 5 * self.level:
+            self.deleted_lines %= 5 * self.level
+            self.level += 1
