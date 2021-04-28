@@ -13,6 +13,17 @@ from PIL import Image, ImageFilter
 
 
 class GameScreen(Frame):
+    """
+    Cette classe représente la frame du jeu.
+
+    Elle définit un nouvel évènement 'TICK_EVENT'. Cet évènement est appelé
+    toutes les 500 millisecondes, et représente chaque itération du tetris,
+    c'est à dire le déplacement de la pièce actuelle vers le bas, la fixation
+    éventuelle de cette même pièce et l'actualisation du score.
+    Cet évènement est activé lorsque cette frame est affichée (dans 'enter')
+    puis est désactivé lorsque l'on change de frame (dans 'exit').
+    """
+
     SPEED = 500
     WIDGET_WIDTH = GuiBoard.WIDGET_WIDTH + NextPieces.WIDGET_WIDTH
     WIDGET_HEIGHT = GuiBoard.WIDGET_HEIGHT + Scoring.WIDGET_HEIGHT
@@ -93,6 +104,20 @@ class GameScreen(Frame):
 
 
 class MenuScreen(Frame):
+    """
+    Cette classe représente la frame de menu du jeu.
+
+    Pour l'instant, ce menu ne contient qu'un bouton pour lancer une partie de tetris,
+    mais il sera possible d'ajouter plusieurs autres choses, dont les commandes du jeu
+    ainsi que l'affichage des meilleurs scores.
+
+    Attention : Le chargement de l'image affichée dans ce menu est fait via un chemin
+    relatif par rapport au cwd, ce qui signifie que si le programme n'est pas lancé
+    depuis le dossier contenant le fichier principal, le programme ne se lancera pas.
+    Je n'ai en effet pas encore eu le temps d'ajouter un manager d'assets, et donc
+    d'utiliser un chemin absolu vers l'image.
+    """
+
     TITLE_FONT = pygame.font.SysFont(None, 40)
     TEXT_FONT = pygame.font.SysFont(None, 20)
 
@@ -100,7 +125,7 @@ class MenuScreen(Frame):
         self.position = position
         self.size = size
         self.layout = layout
-        self.image = pygame.image.load("assets/tetris.png")
+        self.image = pygame.image.load("assets/images/tetris.png")
         x, y = self.position
         width, height = self.size
         self.button = Button(
@@ -140,6 +165,13 @@ class MenuScreen(Frame):
 
 
 class LostScreen(Frame):
+    """
+    Cette classe représente la frame affichée lorsque l'on perd.
+    Au moment où l'on perd, il y a tout d'abord une animation de fin de jeu.
+    Une fois l'animation terminée, on affiche les différentes actions possibles (rejouer ou retourner au menu).
+    Ces différentes actions sont faites par le biais de boutons.
+    """
+
     TITLE_FONT = pygame.font.SysFont(None, 40)
     TEXT_FONT = pygame.font.SysFont(None, 20)
 
@@ -149,13 +181,14 @@ class LostScreen(Frame):
         self.layout = layout
         x, y = self.position
         width, height = self.size
+        # création des deux boutons
         self.replay_button = Button(
             (x + width // 2 - 100, y + height // 2 - 25 + 80),
             (200, 50),
             "Play",
             border_radius=5
         )
-        self.replay_button.on_click = lambda button, _: self.replay()
+        self.replay_button.on_click = lambda button, _: self.replay() # liaison de l'évènement 'on_click' à la méthode 'replay'
         self.menu_button = Button(
             (x + width // 2 - 100, y + height // 2 - 25 + 140),
             (200, 50),
@@ -163,7 +196,8 @@ class LostScreen(Frame):
             border_radius=5,
             mouse_hover_color=Colors.GREEN, mouse_hover_font_color=(0, 255, 0)
         )
-        self.menu_button.on_click = lambda button, _: self.menu()
+        self.menu_button.on_click = lambda button, _: self.menu() # liaison de l'évènement 'on_click' à la méthode 'menu'
+        # attributs nécessaires pour l'animation
         self.in_animation = False
         self.tick = 0
         self.positions1 = []
@@ -206,6 +240,17 @@ class LostScreen(Frame):
             self.menu_button.draw(surface, (0, 0))
 
     def _lost_animation(self, surface):
+        """
+        Cette méthode est responsable de l'animation affichée lorsque l'on perd.
+
+        Si le nombre de 'tick' est égal à 0, on génère une liste triée par ordre décroissant
+        des positions par rapport au centre de l'écran, via un calcul de distance.
+        Ces positions sont assignées à 'positions1' et copiées dans 'position2'.
+
+        Ensuite, dans tous les cas, tant que la liste 'positions2' n'est pas vide, on répète (au plus) 200 fois :
+        - on récupère une position de la liste 'positions1', et on affiche un carré d'une couleur aléatoire à cette position sur l'écran
+        - si le nombre de ticks est supérieur ou égal à 1, on fait la même chose pour 'positions2', mais en affichant le carré en noir
+        """
         if self.tick == 0:
             width, height = surface.get_rect().size
             posx, posy = width // 2, height // 2
@@ -215,7 +260,6 @@ class LostScreen(Frame):
                 reverse=True
             )
             self.positions2 = self.positions1[:]
-        colors = [Colors.BLACK, Colors.DARK_GREY, Colors.LIGHT_GREY]
         for _ in range(200):
             if not self.positions2:
                 self.in_animation = False
@@ -226,10 +270,13 @@ class LostScreen(Frame):
             if self.tick >= 1:
                 position = self.positions2.pop()
                 surface.fill(Colors.BLACK, pygame.Rect(position, (10, 10)))
-        self.first_time = False
 
 
 class PauseScreen(Frame):
+    """
+    Cette classe représente la frame de pause du jeu.
+    """
+
     FONT = pygame.font.SysFont(None, 30)
     TEXT = "PAUSE"
 
@@ -237,7 +284,7 @@ class PauseScreen(Frame):
         self.position = position
         self.size = size
         self.layout = layout
-        self.first_time = False
+        self.first_time = False # booléen pour savoir si on vient juste d'afficher cette frame
 
     def enter(self):
         self.first_time = True
@@ -249,24 +296,23 @@ class PauseScreen(Frame):
                 return True
         return False
 
-    def on_key_event(self, keyboard):
-        pass
-
     def draw(self, surface, position):
         if not self.first_time:
             return
         else:
             self.first_time = False
-        # get the current surface's image and blur it
+        # on récupère l'image de la surface actuelle
         array = pygame.surfarray.pixels3d(surface)
         image = Image.fromarray(array)
+        # on applique un filtre pour flouter cette image
         image = image.filter(ImageFilter.GaussianBlur(10))
+        # et on transforme la nouvelle image en 'Surface', que l'on peut ensuite afficher
         new_image = pygame.surfarray.make_surface(np.array(image))
-        del array # else : surface is locked
+        del array # sans cela, la surface est bloquée en lecture seule
         surface.blit(new_image, position)
         width, height = surface.get_rect().size
-        # render the text box
-        text = self.FONT.render(self.TEXT, True, (255, 255, 255))
+        # on affiche le texte
+        text = self.FONT.render(self.TEXT, True, (255, 255, 255)) # pour une raison inconnue, utiliser Colors.WHITE ne marchait pas pour les 'Font'
         text_size = max(self.FONT.size(self.TEXT))
         text_rect = text.get_rect(center=(width // 2, height // 2))
         where_to_draw = (

@@ -4,29 +4,17 @@ from .gui_board import GuiBoard
 
 class Scoring:
     """
-    ## Scoring(object) ##
-    The gui component containing the score info.
+    Cette classe représente la gestion du score.
 
-    CLASS ATTRIBUTES
-    ----------------
-    SCORE: dict[int, int]
-        the mapping 'numbers of deleted lines' -> 'score'
-    FONT: pygame.font.Font
-        the font used to render the score
-    WIDGET_HEIGHT: int
-        the height of the widget
-
-    ATTRIBUTES
-    ----------
-    score: int
-        the current score
-
-    METHODS
-    -------
-    add_score(self, score: int) -> None
-        update the score
-    draw(self, surface: pygame.Surface, position: (int, int))
-        display the score board on the given surface at the given position
+    Le système de score est très simple :
+    - au début, le score est à 0, et le level est à 1
+    - toutes les 'level * 5' lignes supprimées, le level est incrémenté de 1
+    - le level agit comme un multiplicateur du score :
+        - 1 lignes supprimées = 'level * 40' points
+        - 2 lignes supprimées = 'level * 100' points
+        - 3 lignes supprimées = 'level * 300' points
+        - 4 lignes supprimées (tetris) = 'level * 1200' points
+        - n lignes supprimées, division euclidienne par 4
     """
     SCORES = {
         0: 0,

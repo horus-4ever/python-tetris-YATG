@@ -3,32 +3,7 @@ import numpy as np
 
 class Board:
     """
-    ## Board(object) ##
-    A class used to represent the game board
-
-    CLASS ATTRIBUTES
-    ----------------
-    WIDTH: int
-        the width of the game board
-    HEIGHT: int
-        the height of the game board
-
-    ATTRIBUTES
-    ----------
-    board: np.array
-        A two-dimensional numpy array representing the board.
-        Each element is either 0 (non-occupied) or 1 (occupied).
-
-    METHODS
-    -------
-    can_rotate(self, piece: Piece, n: int) -> bool:
-        returns True if the piece can be rotated, False otherwise
-    can_move(self, piece: Piece, position: tuple[int, int]) -> bool:
-        returns True is the piece can be moved to the given position, False otherwise
-    fix(self, piece: Piece):
-        fix the given tetrimino on the board
-    strip(self) -> int:
-        deletes all full lines, and return the number of deleted lines
+    Cette classe représente la plateau de jeu non graphique du tetris.
     """
     WIDTH = 10
     HEIGHT = 22

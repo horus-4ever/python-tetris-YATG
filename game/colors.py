@@ -5,14 +5,11 @@ from pygame import Color
 
 class Colors(IntEnum):
     """
-    ## Colors(IntEnum) ##
-    The enumeration of all colors used in the game.
+    Cette énumération contient les différentes couleurs utilisées dans le jeu.
 
-    CLASSMETHODS
-    ------------
-    random_color(cls) -> int:
-        returns a random color from the members of the enumeration.
-        The random color cannot be one of the 3 following reserved colors : DARK_GREY, BLACK and WHITE
+    La méthode 'random_color' retourne une couleur aléatoire parmi les membres
+    de l'énumération, à l'exception de quatre couleurs réservées (DARK_GREY,
+    BLACK, WHITE et LIGHT_GREY).
     """
     ORANGE = Color(0xFF5500)
     YELLOW = Color(0xFFFF00)
@@ -24,18 +21,6 @@ class Colors(IntEnum):
     DARK_GREY = Color(0x555555)
     LIGHT_GREY = Color(0xAAAAAA)
     BLACK = Color(0x000000)
-    """
-    ORANGE = Color(238, 153, 0)
-    YELLOW = Color(221, 238, 0)
-    WHITE = Color(255, 255, 255)
-    GREEN = Color(0, 255, 51)
-    BLUE = Color(0, 136, 255)
-    RED = Color(255, 51, 51)
-    PURPLE = Color(238, 0, 238)
-    DARK_GREY = Color(68, 68, 68)
-    LIGHT_GREY = Color(170, 170, 170)
-    # BLACK = Color(0, 0, 0)
-    """
 
     @classmethod
     def random_color(cls):

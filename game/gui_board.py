@@ -5,30 +5,7 @@ import pygame
 
 class GuiBoard(Board):
     """
-    ## GuiBoard(Board) ##
-    The gui component representing the game board.
-    This class is an extension from the Board class.
-
-    CLASS ATTRIBUTES
-    ----------------
-    PIXEL_SIZE: int
-        the size of a pixel
-    WIDGET_WIDTH: int
-        the total width of the Board
-    WIDGET_HEIGHT: int
-        the total height of the Board
-    [+inherited attributes from Board]
-    
-    ATTRIBUTES
-    ----------
-    [inherited attributes from Board]
-
-    METHODS
-    -------
-    draw(self, surface: pygame.Surface, position: (int, int)) -> None:
-        draw the widget on the given surface and at the given position
-    draw_piece(self, piece: GuiPiece, surface: pygame.Surface, position: (int, int)) -> None:
-        draw the given piece at the given position on the given surface
+    Cette classe est une extension de la classe 'Board', ajoutant une surcouche graphique.
     """
     PIXEL_SIZE = 30
     WIDGET_WIDTH = Board.WIDTH * PIXEL_SIZE

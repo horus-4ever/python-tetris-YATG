@@ -3,31 +3,11 @@ import numpy as np
 
 class Piece:
     """
-    ## Piece(object) ##
-    A class used to represent a tetrimino.
-
-    ATTRIBUTES
-    ----------
-    shape: np.array
-        the shape of the tetrimino
-    position: tuple[int, int]
-        the position of the tetrimino on the board
-    rotation: int
-        the rotation of the tetrimino
-
-    PROPERTIES
-    ----------
-    size (getter only): tuple[int, int]
-        the shape of the np.array representing the tetrimino
-    matrix (getter only): np.array
-        returns a copy of the shape np.array, with the applied rotation
-
-    METHODS
-    -------
-    rotate(self, n=1)
-        add n to the current rotation
-    move(self, position)
-        change the current position of the tetrimino
+    Cette classe représente un tetrimino.
+    Un tetrimino est simplement défini par une matrice 'shape',
+    une position sur le plateau de jeu, ainsi qu'une rotation.
+    L'information sur la couleur du tetrimino est laissé à la
+    partie graphique, dans 'gui_piece'.
     """
     
     def __init__(self, shape, position, rotation=0):

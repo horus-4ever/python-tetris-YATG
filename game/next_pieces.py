@@ -7,21 +7,8 @@ from .gui_piece import GuiPiece
 
 class NextPieces:
     """
-    ## NextPieces(object) ##
-    The gui component of the tetris game representing the next tetriminos to be played
-
-    ATTRIBUTES
-    ----------
-    pieces: collections.deque[GuiPiece]
-        the queue of the next tetriminos to be played
-    
-    METHODS
-    -------
-    pop(self) -> GuiPiece:
-        pop off the queue the next tetrimino to be played, and push a new random tetrimino
-    draw(self, surface: pygame.Surface, position: (int, int)) -> None:
-        draw the widget on the given surface
-
+    Cette classe représente la gestion et l'affichage des tetriminos à venir.
+    Les trois tetriminos sont placés dans un deque.
     """
     NUMBER = 3
     PIXEL_SIZE = 15
@@ -41,6 +28,7 @@ class NextPieces:
         return piece
 
     def _draw_placeholder(self, surface, positition, color):
+        # le placeholder correspond au carré contenant un aperçu de la pièce à venir
         x, y = positition
         square_size = self.PLACEHOLDER_SIZE
         pygame.draw.rect(surface, color, (x, y, square_size, square_size), 2, 10)
@@ -63,7 +51,9 @@ class NextPieces:
         posx, posy = position
         posx, posy = posx + self.MARGIN, posy + self.MARGIN
         for piece in self.pieces:
-            # print("INIT", piece.size)
+            # on supprimes toutes les lignes contenant uniquement des 0
+            # on créé ensuite une fausse pièce contenant la matrice modifiée
+            # cela permet de pouvoir correctement centrer la pièce au sein du placeholder
             new_shape = piece.shape[~np.all(piece.shape == 0, axis=1)]
             new_piece = GuiPiece(new_shape, piece.color, piece.position, piece.rotation)
             height, width = new_shape.shape

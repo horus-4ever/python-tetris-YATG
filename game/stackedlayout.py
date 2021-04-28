@@ -2,9 +2,19 @@ from .frame import Frame
 
 
 class StackedLayout(Frame):
+    """
+    Cette classe représente un gestionnaire de frames.
+    Je me suis basé sur ma relative expérience de pyqt5 pour créer cette classe.
+
+    Les règles du gestionnaire sont simples :
+    - il existe une frame actuelle qui est la frame sélectionnée, et qui sera affichée
+    - chaque frame porte un nom, et l'on sélectionne une frame par son nom
+    - les évènements arrivant sur le gestionnaire sont redirigés à la frame sélectionnée
+    """
+
     def __init__(self, **frames):
         self.frames = frames
-        if len(self.frames):
+        if self.frames:
             self.set_frame(next(self.frames.keys()))
         else:
             self.current = None

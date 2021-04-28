@@ -52,6 +52,13 @@ S = array([
 
 
 class Pieces:
+    """
+    Cette classe fait office d'énumération et contient les différentes
+    formes (des matrices numpy) des tetriminos.
+    La méthode 'random_shape' permet de sélectionner l'une de ces formes
+    aléatoirement.
+    """
+
     TETRIMINO_I = I
     TETRIMINO_O = O
     TETRIMINO_T = T
