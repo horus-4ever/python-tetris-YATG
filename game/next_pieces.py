@@ -36,8 +36,8 @@ class NextPieces:
     def _draw_piece(self, surface, piece, position):
         posx, posy = position
         height, width = piece.size
-        for y in range(height):
-            for x in range(width):
+        for x in range(width):
+            for y in range(height):
                 if piece.shape[y][x]:
                     rectangle = (
                         posx + x * self.PIXEL_SIZE,

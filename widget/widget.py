@@ -1,8 +1,18 @@
-from .event import event, Event
+from .event import event
 import pygame
 
 
 class Widget:
+    """
+    Cette classe est la classe mère de tous les widgets.
+
+    Un widget peut réagir à de nombreux évènements, qui sont défini
+    ci-dessous dans le coprs de la classe.
+    Ces évènements sont communs à tous les widgets tant qu'ils ne
+    sont pas redéfini par uen instance. Pour plus de précision, voir
+    la classe 'Event' du fichier 'event.py'.
+    """
+
     def __init__(self, position, size):
         self.position = position
         self.size = size

@@ -3,6 +3,12 @@ from .widget import Widget
 
 
 class Frame(Widget):
+    """
+    Cette classe représente une frame.
+    Elle n'est pas utilisée pour le moment dans le programme, et
+    est donc pour le moment inutile.
+    """
+
     @event
     def enter(self):
         pass

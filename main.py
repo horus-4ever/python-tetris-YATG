@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+# INP 1A Nancy Tetris
+
 import pygame
 pygame.init()
 pygame.font.init()
@@ -5,7 +8,6 @@ pygame.font.init()
 
 from game.game import Game
 
-# TODO: place widgets at their creations (for fixed widgets only)
 
 game = Game()
 game.run()

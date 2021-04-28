@@ -4,6 +4,14 @@ import pygame
 
 
 class Button(Widget):
+    """
+    Cette classe représente un bouton.
+
+    La définition par défaut des évènements 'on_mouse_enter' et
+    'on_mouse_leave' permet de changer la couleur du bouton
+    lorsque la souris passe au-dessus du widget.
+    """
+
     def __init__(self, position, size, text, font_size=25, **attributes):
         super().__init__(position, size)
         self.text = text
