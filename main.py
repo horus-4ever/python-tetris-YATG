@@ -6,7 +6,7 @@ pygame.init()
 pygame.font.init()
 
 
-from game.game import Game
+from game import Game
 
 
 game = Game()
