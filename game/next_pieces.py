@@ -46,6 +46,7 @@ class NextPieces:
                         self.PIXEL_SIZE
                     )
                     pygame.draw.rect(surface, piece.color, rectangle)
+                    pygame.draw.rect(surface, Colors.BLACK, rectangle, 1)
 
     def draw(self, surface, position):
         posx, posy = position
