@@ -49,7 +49,7 @@ class Widget:
                     self.on_button_up(event)
             self.mouse_button_was_down = False
         elif event.type == pygame.KEYDOWN:
-            self.on_key_down(self, event)
+            self.on_key_down(event)
 
     def _mouse_in(self, event):
         return (self.position[0] <= event.pos[0] <= self.position[0] + self.size[0]
