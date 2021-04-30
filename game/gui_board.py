@@ -1,4 +1,5 @@
 from board import Board
+from .gui_piece import GuiPiece
 from .colors import Colors
 import pygame
 
@@ -26,4 +27,10 @@ class GuiBoard(Board):
                     pygame.draw.rect(surface, Colors.DARK_GREY, rectangle)
 
     def draw_piece(self, piece, surface, position):
+        fake_piece = GuiPiece(piece.shape, Colors.VERY_DARK_GREY, piece.position, piece.rotation)
+        posx, posy = fake_piece.position
+        while self.can_move(fake_piece, (posx, posy + 1)):
+            fake_piece.move((posx, posy + 1))
+            posy += 1
+        fake_piece.draw(surface, position, self.PIXEL_SIZE)
         piece.draw(surface, position, self.PIXEL_SIZE)

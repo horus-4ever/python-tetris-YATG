@@ -32,3 +32,4 @@ class GuiPiece(Piece):
                 )
                 if matrix[y][x]:
                     pygame.draw.rect(surface, self.color, rectangle)
+                    pygame.draw.rect(surface, Colors.BLACK, rectangle, 1)
